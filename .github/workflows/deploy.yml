@@ -25,6 +25,6 @@ jobs:
       - name: GitHub Pages Deployment
         uses: crazy-max/ghaction-github-pages@v4.0.0
         with:
-          build_dir: dist/stellaris-nexus-encyclopedia
+          build_dir: dist/stellaris-nexus-encyclopedia/browser
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
