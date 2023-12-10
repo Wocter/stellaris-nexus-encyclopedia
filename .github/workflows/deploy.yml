@@ -1,0 +1,30 @@
+name: Angular-GitHub-Pages-CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Workspace
+        uses: actions/checkout@v4.1.1
+      - name: Node.js setup
+        uses: actions/setup-node@v4.0.0
+        with:
+          node-version: "20.x"
+      - name: npm ci
+        run: npm ci
+      - name: Build App
+        run: npm run build:production
+      - name: Rename index for routing
+        run: mv dist/stellaris-nexus-encyclopedia/browser/index.html dist/stellaris-nexus-encyclopedia/browser/404.html
+      - name: GitHub Pages Deployment
+        uses: crazy-max/ghaction-github-pages@v4.0.0
+        with:
+          build_dir: dist/stellaris-nexus-encyclopedia
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
